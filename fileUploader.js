@@ -23,7 +23,7 @@ export default async function (body, path, fileName) {
 
   try {
     const result = await new Upload({ client, params }).done()
-    return result.Location.replace('.jp-osa-1.linodeobjects.com', '')
+    return result.Location
   } catch (err) {
     return false
   }

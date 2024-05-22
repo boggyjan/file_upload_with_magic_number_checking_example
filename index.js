@@ -29,8 +29,9 @@ const upload = multer({
     cb(null, true)
   },
   limits: {
-    // 限制檔案大小 1mb
-    fileSize: 2.7 * 1024 * 1024
+    // 限制檔案大小 2mb
+    // * 這邊注意一定要是整數！！！
+    fileSize: 2 * 1024 * 1024
   }
 })
 
@@ -58,7 +59,7 @@ app.post('/upload', multerMiddleware, async (req, res, next) => {
       if (fileChecker(file)) {
         const uploadedUrl = await fileUploader(file.buffer, filepath, filename + ext)
         file.newfilename = filename
-        file.cdnUrl = uploadedUrl
+        file.cdnUrl = uploadedUrl.replace('.jp-osa-1.linodeobjects.com', '')
       } else {
         file.error = 'File format does not match file ext'
       }
